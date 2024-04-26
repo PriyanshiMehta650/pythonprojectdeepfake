@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Deepfake Detection</title>
+  <style>
+    body {
+      background-image: url('ai-with-voice-new.png');
+      background-size: cover;
+      text-align: center;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <h1>Deepfake Detection</h1>
+  
+  <form id="uploadForm" enctype="multipart/form-data" action="http://localhost:8000/predict" method="POST">
+    <input type="file" name="file" id="fileInput">
+    <button type="button" onclick="detectDeepfake()">Detect</button>
+  </form>
+
+  <div id="result"></div>
+
+  <script>
+    function detectDeepfake() {
+      // Placeholder for local detection without backend interaction
+      // You can add your detection logic here
+      // For now, let's just display a placeholder result
+      document.getElementById("result").innerText = "Detection in progress...";
+
+      // Submit the form to the Flask endpoint
+      var form = document.getElementById("uploadForm");
+      var formData = new FormData(form);
+      fetch('http://localhost:8000/predict', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Handle the response from the server
+        document.getElementById("result").innerText = "Detection result: " + data.prediction;
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        document.getElementById("result").innerText = "Error occurred during detection";
+      });
+    }
+  </script>
+</body>
+</html>
